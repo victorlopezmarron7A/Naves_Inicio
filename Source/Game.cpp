@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Game.h"
+#include <SDL.h>
 
 CGame::CGame(){
-	estado = 0;
+	estado = ESTADO_INICIANDO;
+	//ACT2:Mal, Aqui debes de darle a "estado" su valor inicial, para indicar en que estado iniciara. Si la dejas asi, sola, el juego nunca tendra estado inicial.
 }
 
 // Con esta función eliminaremos todos los elementos en pantalla
@@ -19,11 +21,20 @@ bool CGame::Start()
             
 		//Maquina de estados
 		switch(estado){
-			case 0: //INICIALIZAR
+		case Estado::ESTADO_INICIANDO: //INICIALIZAR
+			Iniciando(); 
+			{
+				nave=SDL_LoadBMP("../DATA/MiNave.bmp");
+				SDL_Blitsurface(nave, NULL, screen, NULL);
+			}
 			break;
-			case 1:	//JUGAR	
+		case Estado::ESTADO_MENU:	   //MENU	
 			break;
-			case 2: //SALIR
+		case Estado::ESTADO_JUGANDO: //JUGAR
+			break;
+		case Estado::ESTADO_TERMINANDO: //TERMINAR
+			break;
+		case Estado::ESTADO_FINALIZADO:  //FINALIZAR
 				salirJuego = true;
 			break;
 		};
