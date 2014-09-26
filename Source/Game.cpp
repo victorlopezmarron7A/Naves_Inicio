@@ -6,6 +6,7 @@
 
 CGame::CGame(){
 	estado = ESTADO_INICIANDO;
+	atexit(SDL_Quit);
 
 	if (SDL_Init(SDL_INIT_VIDEO)<0)//si regresa 1 el init de video si se activo y regresa -1 si no se pudo iniciar. 
 	{
@@ -21,7 +22,17 @@ CGame::CGame(){
 }
 
 // Con esta función eliminaremos todos los elementos en pantalla
-void CGame::Finalize(){
+void CGame::Finalize()
+{
+     SDL_Quit();
+}
+void CGame :: Iniciando(){
+	if (screen == NULL){
+printf("Error %s ", SDL_GetError());
+exit(EXIT_FAILURE);
+}
+SDL_WM_SetCaption( "Mi primer Juego", NULL );
+
 }
 
 bool CGame::Start()
