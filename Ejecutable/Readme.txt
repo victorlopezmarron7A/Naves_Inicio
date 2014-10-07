@@ -1,3 +1,3 @@
 "Listo Maestro.[Victor Lopez]"
 
-Actividad 1: Mal debe de ir en la Carpata Ejecutable y no en Proyecto, corrijelo.
+Actividad 1: 8, Un poco a destiempo, pero bien.
