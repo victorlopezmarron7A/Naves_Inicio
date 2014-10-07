@@ -7,7 +7,7 @@
 CGame::CGame(){
 	estado = ESTADO_INICIANDO;
 	atexit(SDL_Quit);
-
+	/////ACT3: Mal, esta seccion no debe de ir aqui, si no en el metodo iniciando.
 	if (SDL_Init(SDL_INIT_VIDEO)<0)//si regresa 1 el init de video si se activo y regresa -1 si no se pudo iniciar. 
 	{
 		printf("No se pudo iniciar SDL: %s\n", SDL_GetError());//
@@ -19,6 +19,7 @@ CGame::CGame(){
 		printf("No se puede inicializar el modo grafico: \n",SDL_GetError());
 		exit(1);
 	}
+	////ACT3: Hasta aqui.
 }
 
 // Con esta función eliminaremos todos los elementos en pantalla
