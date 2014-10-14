@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Game.h"
+#include "configuracion.h"
 #include <SDL.h>
 #include <SDL_image.h>
 
@@ -13,7 +14,7 @@ CGame::CGame(){
 		printf("No se pudo iniciar SDL: %s\n", SDL_GetError());//
 		exit(EXIT_FAILURE);
 	}
-	screen= SDL_SetVideoMode(640,480,24,SDL_HWSURFACE);//(ancho,alto,bpp,bandera)
+	screen= SDL_SetVideoMode(WIDTH_SCREEN,HEIGHT_SCREEN,24,SDL_HWSURFACE);//(ancho,alto,bpp,bandera)
 	if (screen==NULL)
 	{
 		printf("No se puede inicializar el modo grafico: \n",SDL_GetError());
@@ -23,47 +24,65 @@ CGame::CGame(){
 }
 
 // Con esta función eliminaremos todos los elementos en pantalla
-void CGame::Finalize()
-{
-     SDL_Quit();
+void CGame::Finalize(){
+    delete(nave);
+	SDL_FreeSurface(screen);
+	SDL_Quit();
 }
 void CGame :: Iniciando(){
 	if (screen == NULL){
-printf("Error %s ", SDL_GetError());
-exit(EXIT_FAILURE);
-}
-SDL_WM_SetCaption( "Mi primer Juego", NULL );
+     printf("Error %s ", SDL_GetError());
+     exit(EXIT_FAILURE);
+     }
+     SDL_WM_SetCaption( "Mi primer Juego", NULL );
+     atexit(SDL_Quit);
+	 nave  = new Nave(screen,"../Data/Minave.bmp");
+     
+	 //delete nave;
 
 }
 
 bool CGame::Start()
-{
-	// Esta variable nos ayudara a controlar la salida del juego...
+
+	{
+
+				// Esta variable nos ayudara a controlar la salida del juego...
 	int salirJuego = false;
           
 	while (salirJuego == false){
-            
+		
 		//Maquina de estados
 		switch(estado){
 		case Estado::ESTADO_INICIANDO:
-			//Iniciando();
+			Iniciando();
+			estado = ESTADO_MENU;
+					
+		
 			{
 				/*nave=SDL_LoadBMP("../Data/MiNave.bmp");*/
-				nave=IMG_LoadJPG_RW(SDL_RWFromFile("../Data/cuadro.jpg","rb"));
-				SDL_Rect fuente;
-				fuente.x = 582;
-				fuente.y = 383;
-				fuente.w = 321;
-				fuente.h = 16;
-				SDL_Rect destino;
-				destino.x = 100;
-				destino.y = 100;
-				destino.w =100;
-				destino.h = fuente.h;
-				SDL_BlitSurface(nave,&fuente,screen,&destino);
+				//nave=IMG_LoadJPG_RW(SDL_RWFromFile("../Data/cuadro.jpg","rb"));
+				//SDL_Rect fuente;
+				//fuente.x = 582;
+				//fuente.y = 383;
+				//fuente.w = 321;
+				//fuente.h = 16;
+				//SDL_Rect destino;
+				//destino.x = 100;
+				//destino.y = 100;
+				//destino.w =100;
+				//destino.h = fuente.h;
+				//SDL_BlitSurface(nave,&fuente,screen,&destino);
 			}
+		
 			break;
-		case Estado ::ESTADO_MENU:	
+        case Estado ::ESTADO_MENU:
+			//nave->PintarModulo(0,0,0,64,64);//primero es id, x,y,w,h
+			//nave->PintarModulo(0,100,100);
+			SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,0,0,0));
+			keys = SDL_GetKeyState(NULL);
+			if(keys[SDLK_DOWN]){
+				nave->Pintar();
+			}
 			break;
 		case Estado ::ESTADO_JUGANDO:
 			break;
@@ -73,6 +92,15 @@ bool CGame::Start()
 			salirJuego = true;
 			break;
 		};
+		while(SDL_PollEvent(&event)) // Aqui SDL creara una lista de eventos ocurrido
+
+		{
+			if(event.type == SDL_QUIT) {salirJuego = true;} // Si se detect una salida de SDL o....
+			if(event.type == SDL_KEYDOWN) {  }
+		
+		}
+
+		// Este codigo estara provicionalmente aqui.
 		SDL_Flip(screen);
     }
 	return true;
