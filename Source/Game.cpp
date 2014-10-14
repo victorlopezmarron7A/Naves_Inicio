@@ -80,9 +80,10 @@ bool CGame::Start()
 			//nave->PintarModulo(0,100,100);
 			SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,0,0,0));
 			keys = SDL_GetKeyState(NULL);
-			if(keys[SDLK_DOWN]){
-				nave->Pintar();
-			}
+			if(keys[SDLK_RIGHT]){
+				nave->Mover(1);
+						}
+             nave->Pintar();
 			break;
 		case Estado ::ESTADO_JUGANDO:
 			break;

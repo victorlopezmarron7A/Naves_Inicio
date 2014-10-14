@@ -35,5 +35,5 @@ int Sprite::WidthModule(int module){
 	return spriteDef.modulos[module].w;
 }
 int Sprite::HeightModule(int module){
-	return spriteDef.modulos[module].w;
+	return spriteDef.modulos[module].h;
 }
