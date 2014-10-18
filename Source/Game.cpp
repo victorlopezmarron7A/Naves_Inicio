@@ -36,8 +36,10 @@ void CGame :: Iniciando(){
      }
      SDL_WM_SetCaption( "Mi primer Juego", NULL );
      atexit(SDL_Quit);
-	 nave  = new Nave(screen,"../Data/Minave.bmp");
-     
+      
+	 nave  = new Nave(screen,"../Data/Minave.bmp",(WIDTH_SCREEN/2)/*-(sprite->WidthModule(0)/2)*/,(HEIGHT_SCREEN-80)/*-(sprite->HeightModule(0)*/);
+     enemigo = new Nave(screen,"../Data/enemigo.bmp",0,0);
+	 enemigo-> SetAutoMovimiento(true);
 	 //delete nave;
 
 }
@@ -54,45 +56,42 @@ bool CGame::Start()
 		//Maquina de estados
 		switch(estado){
 		case Estado::ESTADO_INICIANDO:
+			printf("\n1. ESTADO_INICIANDO");
+			
 			Iniciando();
 			estado = ESTADO_MENU;
-					
-		
-			{
-				/*nave=SDL_LoadBMP("../Data/MiNave.bmp");*/
-				//nave=IMG_LoadJPG_RW(SDL_RWFromFile("../Data/cuadro.jpg","rb"));
-				//SDL_Rect fuente;
-				//fuente.x = 582;
-				//fuente.y = 383;
-				//fuente.w = 321;
-				//fuente.h = 16;
-				//SDL_Rect destino;
-				//destino.x = 100;
-				//destino.y = 100;
-				//destino.w =100;
-				//destino.h = fuente.h;
-				//SDL_BlitSurface(nave,&fuente,screen,&destino);
-			}
-		
+			printf("\n2. ESTADO_MENU");
 			break;
-        case Estado ::ESTADO_MENU:
-			//nave->PintarModulo(0,0,0,64,64);//primero es id, x,y,w,h
-			//nave->PintarModulo(0,100,100);
-			SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,0,0,0));
+		
+			case Estado ::ESTADO_MENU:
+			printf("\n3. ESTADO_JUGANDO");	
+            enemigo->Actualizar();
+        	SDL_FillRect(screen,NULL, SDL_MapRGB(screen->format,0,0,0));
 			keys = SDL_GetKeyState(NULL);
 			if(keys[SDLK_RIGHT]){
 				nave->Mover(1);
+
 						}
              nave->Pintar();
+			 enemigo->Pintar();
+          break;
+			case Estado ::ESTADO_JUGANDO:
+		     estado = ESTADO_JUGANDO;
+            
+		     break;
+		   		      
+			case Estado ::ESTADO_TERMINANDO:
+            printf("\n3. ESTADO_TERMUNANDO");
 			break;
-		case Estado ::ESTADO_JUGANDO:
+
+			case Estado ::ESTADO_FINALIZANDO:
+			printf("\n3. ESTADO_FINALIZANDO");
+            salirJuego = true;
+		
 			break;
-		case Estado ::ESTADO_TERMINANDO:
-			break;
-		case Estado ::ESTADO_FINALIZANDO:
-			salirJuego = true;
-			break;
+				
 		};
+
 		while(SDL_PollEvent(&event)) // Aqui SDL creara una lista de eventos ocurrido
 
 		{
@@ -105,4 +104,5 @@ bool CGame::Start()
 		SDL_Flip(screen);
     }
 	return true;
+
 }
