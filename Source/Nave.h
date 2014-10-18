@@ -7,13 +7,10 @@ class Nave{
     Sprite *sprite;
      int x;
 	 int y;
-	 bool autoMovimiento;
 public:
 	void Mover(int posicion);
-	Nave(SDL_Surface * screen,char * rutaImagen,int x, int y);//Constructor
-	void SetAutoMovimiento(bool autoMovimiento);
+	Nave(SDL_Surface * screen,char * rutaImagen);//Constructor
 	void Pintar();
-	void Actualizar();
 };
 
 #endif
