@@ -1,9 +1,11 @@
 #ifndef _SPRITEDEF_H_
 #define _SPRITEDEF_H_
 
-class SpriteDef{
+class SpriteDef
+{
 public:
-	struct Modulos{
+	struct Modulos
+	{
 	 int id;
 	 int x;
 	 int y;
@@ -12,8 +14,8 @@ public:
 
 	
 	};
-
-     Modulos modulos [1];
+public:
+	 Modulos modulos[1];
      SpriteDef();
 };
 

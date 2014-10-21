@@ -78,6 +78,7 @@
     <ClInclude Include="..\Source\Nave.h" />
     <ClInclude Include="..\Source\sprite.h" />
     <ClInclude Include="..\Source\SpriteDef.h" />
+    <ClInclude Include="config.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Ejecutable\Readme.txt" />
