@@ -41,18 +41,8 @@ void CGame::Iniciando(){
 	screen = SDL_SetVideoMode(WIDTH_SCREEN, HEIGHT_SCREEN, 24, SDL_HWSURFACE);//(ancho,alto,bpp,bandera)
 	if (screen == NULL)
 	{
-		screen = SDL_SetVideoMode(640, 480, 24, SDL_SWSURFACE);
-	}
-	if (screen == NULL)
-		screen = SDL_SetVideoMode(640, 480, 24, SDL_SWSURFACE);
-    }
-	if (screen == NULL)
-	{
 		 printf("Error %s ", SDL_GetError());
          exit(EXIT_FAILURE);
-
-		 rintf("Error %s ", SDL_GetError());
-		 exit(EXIT_FAILURE);
      }
      SDL_WM_SetCaption( "Mi primer Juego", NULL );
     
@@ -84,13 +74,13 @@ bool CGame::Start()
 			if (i == 0)
 			{
 				printf("\n2. ESTADO_MENU");
-				Estado::ESTADO_FINALIZANDO:
-				I = 1;
+				Estado::ESTADO_FINALIZANDO://ESTO NO TE LLEVA A NINGUNA PARTE
+				I = 1;//ESTA VARIABLE NO EXISTE
 			}
 			else
 			{
 				printf("\n2. ESTADO_MENU");
-				estado = ESTADO_FINALIZANDO
+				estado = ESTADO_FINALIZANDO;
 			}
 			break;
 		case Estado::ESTADO_JUGANDO:
