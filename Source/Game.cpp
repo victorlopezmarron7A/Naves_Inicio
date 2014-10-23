@@ -41,6 +41,7 @@ void CGame::Iniciando(){
 	screen = SDL_SetVideoMode(WIDTH_SCREEN, HEIGHT_SCREEN, 24, SDL_HWSURFACE);//(ancho,alto,bpp,bandera)
 	if (screen == NULL)
 	{
+<<<<<<< HEAD
 		screen = SDL_SetVideoMode(640, 480, 24, SDL_SWSURFACE);
 	}
 	if (screen == NULL)
@@ -54,6 +55,17 @@ void CGame::Iniciando(){
 	enemigo = new Nave(screen, "../Data/enemigo.bmp", 0, 0);
 	enemigo->SetAutoMovimiento(true);
 	//delete nave;
+=======
+		 printf("Error %s ", SDL_GetError());
+         exit(EXIT_FAILURE);
+     }
+     SDL_WM_SetCaption( "Mi primer Juego", NULL );
+    
+     nave  = new Nave(screen,"../Data/Minave.bmp",(WIDTH_SCREEN/2)/*-(sprite->WidthModule(0)/2)*/,(HEIGHT_SCREEN-80)/*-(sprite->HeightModule(0)*/);
+     enemigo = new Nave(screen,"../Data/enemigo.bmp",0,0);
+	 enemigo-> SetAutoMovimiento(true);
+	 //delete nave;
+>>>>>>> origin/master
 
 }
 
@@ -79,8 +91,13 @@ bool CGame::Start()
 			if (i == 0)
 			{
 				printf("\n2. ESTADO_MENU");
+<<<<<<< HEAD
 				Estado::ESTADO_JUGANDO;
 				i = 1;
+=======
+				Estado::ESTADO_FINALIZANDO://ESTO NO TE LLEVA A NINGUNA PARTE
+				I = 1;//ESTA VARIABLE NO EXISTE
+>>>>>>> origin/master
 			}
 			else
 			{
