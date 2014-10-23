@@ -1,5 +1,12 @@
 #include <SDL.h>
 #include "Nave.h"
+
+#define BORDE_IZQUIERDO  1<<0
+#define BORDE_SUPERIOR   1<<1
+#define BORDE_DERECHO    1<<2
+#define BORDE_INFERIOR   1<<3
+
+
 class CGame
 {
 public:
@@ -17,7 +24,8 @@ public:
 	void Finalize();
 
 private:
-	void Iniciando();   
+	void Iniciando(); 
+	bool EsLimitePantalla(Nave * objeto, int bandera);
 
 	Uint8 *keys;// Uint8 es un signo entero de 8 bits, Esta variable nos servira para ver si determinadas teclas estan o no pulsadas 
 	SDL_Event event;// La variable event de tipo Evento en SDL nos servira para monitorizar el teclado

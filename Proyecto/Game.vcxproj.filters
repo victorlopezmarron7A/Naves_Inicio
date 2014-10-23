@@ -44,7 +44,7 @@
     <ClInclude Include="..\Source\Nave.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="config.h">
+    <ClInclude Include="..\Source\configuracion.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

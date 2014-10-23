@@ -19,6 +19,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -74,11 +75,11 @@
     <ClCompile Include="..\Source\SpriteDef.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\configuracion.h" />
     <ClInclude Include="..\Source\Game.h" />
     <ClInclude Include="..\Source\Nave.h" />
     <ClInclude Include="..\Source\sprite.h" />
     <ClInclude Include="..\Source\SpriteDef.h" />
-    <ClInclude Include="config.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Ejecutable\Readme.txt" />
