@@ -19,12 +19,13 @@ public:
 		ESTADO_TERMINANDO,
 		ESTADO_FINALIZANDO
 	};
-
+	
 	CGame();
 	void Finalize();
 
 private:
 	void Iniciando(); 
+	void MoverEnemigo();
 	bool EsLimitePantalla(Nave * objeto, int bandera);
 
 	Uint8 *keys;// Uint8 es un signo entero de 8 bits, Esta variable nos servira para ver si determinadas teclas estan o no pulsadas 
