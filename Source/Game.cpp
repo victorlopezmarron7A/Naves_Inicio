@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Game.h"
-#include "configuracion.h"
+#include "Configuracion.h"
 #include <SDL.h>
 #include <SDL_image.h>
 
@@ -28,33 +28,33 @@ void CGame::Iniciando()
 		exit(EXIT_FAILURE);
 	}
 
-
-
 	screen = SDL_SetVideoMode(WIDTH_SCREEN, HEIGHT_SCREEN, 24, SDL_HWSURFACE);
-	if (screen == NULL)
+	/*if (screen == NULL)
 	{
-		screen = SDL_SetVideoMode(640, 480, 24, SDL_SWSURFACE);
+	screen = SDL_SetVideoMode(640, 480, 24, SDL_SWSURFACE);
 	}
 	if (screen == NULL)
 	{
-		screen = SDL_SetVideoMode(640, 480, 24, SDL_SWSURFACE);
-	}
+	screen = SDL_SetVideoMode(640, 480, 24, SDL_SWSURFACE);
+	}*/
 	if (screen == NULL)
 	{
-		printf("Error %s ", SDL_GetError());
-		exit(EXIT_FAILURE);
-
-
-
 		printf("Error %s ", SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
 
 	SDL_WM_SetCaption("Mi primer Juego", NULL);
 
-
 	nave = new Nave(screen, "../Data/minave.bmp", (WIDTH_SCREEN / 2) /*- (sprite->WidthModule(0) / 2)*/, (HEIGHT_SCREEN - 80) /*- sprite->HeightModule(0)*/);
 	enemigo = new Nave(screen, "../Data/enemigo.bmp", 0, 0);
+
+	for (int i = 0; i < 10; i++)
+	{
+		enemigoArreglo[i] = new Nave(screen, "../Data/enemigo.bmp", i * 60, 0);
+		enemigoArreglo[i]->SetAutoMovimiento(false);
+		enemigoArreglo[i]->SetPasoLimite(4);
+	}
+
 	enemigo->SetAutoMovimiento(false);
 	enemigo->SetPasoLimite(4);
 
@@ -91,6 +91,10 @@ bool CGame::Start()
 			break;
 		case Estado::ESTADO_JUGANDO:	//JUGAR	
 			enemigo->Actualizar();
+			for (int i = 0; i < 10; i++)
+			{
+				enemigoArreglo[i]->Actualizar();
+			}
 			MoverEnemigo();
 			SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 			keys = SDL_GetKeyState(NULL);
@@ -112,19 +116,23 @@ bool CGame::Start()
 			//Mover en Y, arriba y abajo (opcional)
 			/*if (keys[SDLK_UP])
 			{
-			if (!EsLimitePantalla(nave))
-			nave->MoverY(-1);
+			if (!EsLimitePantalla(nave, BORDE_SUPERIOR))
+			nave->MoverY(-2);
 			}
 
 			if (keys[SDLK_DOWN])
 			{
-			if (!EsLimitePantalla(nave))
-			nave->MoverY(1);
+			if (!EsLimitePantalla(nave, BORDE_INFERIOR))
+			nave->MoverY(2);
 			}*/
 			//Aqui termina Y
 
 			nave->Pintar();
 			enemigo->Pintar();
+			for (int i = 0; i < 10; i++)
+			{
+				enemigoArreglo[i]->Pintar();
+			}
 
 			if (keys[SDLK_SPACE]) //Para evitar que se cicle en un estado, Pulsamos la tecla Abajo (en ese caso) y esa tecla nos dice que estamos en ESTADO_JUGANDO y nos manda a ESTADO_TERMINANDO;
 			{
@@ -175,25 +183,59 @@ bool CGame::EsLimitePantalla(Nave * objeto, int bandera)
 
 void CGame::MoverEnemigo()
 {
-	if (enemigo->ObtenerPasoActual()==0)
+	if (enemigo->ObtenerPasoActual() == 0)
 		if (!EsLimitePantalla(enemigo, BORDE_DERECHO))
-			enemigo->MoverX(1);//DERECHA
-		else{
-			enemigo->IncrementarPasoActual();
-			enemigo->IncrementarPasoActual();
-		}
-  //if (enemigo->ObtenerPasoActual()==1)
-    //   if (!!EsLimitePantalla(enemigo, BORDE_INFERIOR)
-	//ENEMIGO->mIVER(1);ABAJO
-    if(enemigo->ObtenerPasoActual()==2)
-        if (!EsLimitePantalla(enemigo, BORDE_IZQUIERDO))
-             enemigo->MoverX(-1); //IZQUIERDA
+			enemigo->MoverX(2);
 		else
 		{
 			enemigo->IncrementarPasoActual();
 			enemigo->IncrementarPasoActual();
 		}
-	// if (enemigo->ObtenerPasoActual() == 3)
-		// if (!EsLimitePantalla(enemigo, BORDE_INFERIOR))
-			 // ENEMIGO->MOVER(1); //ABAJO
-} 
+	if (enemigo->ObtenerPasoActual() == 1)
+		if (!EsLimitePantalla(enemigo, BORDE_INFERIOR))
+			enemigo->MoverY(2);//ABAJO
+	if (enemigo->ObtenerPasoActual() == 2)
+		if (!EsLimitePantalla(enemigo, BORDE_IZQUIERDO))
+			enemigo->MoverX(-2);//IZQUIERDA
+		else
+		{
+			enemigo->IncrementarPasoActual();
+			enemigo->IncrementarPasoActual();
+		}
+	if (enemigo->ObtenerPasoActual() == 3)
+		if (!EsLimitePantalla(enemigo, BORDE_INFERIOR))
+			enemigo->MoverX(2);//ABAJO
+
+
+	for (int i = 0; i < 10; i++)
+	{
+		if (enemigoArreglo[i]->ObtenerPasoActual() == 0)
+			if (!EsLimitePantalla(enemigoArreglo[i], BORDE_DERECHO))
+				enemigoArreglo[i]->MoverX(2);
+			else
+			{
+				enemigoArreglo[i]->IncrementarPasoActual();
+				enemigoArreglo[i]->IncrementarPasoActual();
+			}
+		if (enemigoArreglo[i]->ObtenerPasoActual() == 1)
+			if (!EsLimitePantalla(enemigoArreglo[i], BORDE_INFERIOR))
+				enemigoArreglo[i]->MoverY(2);//ABAJO
+		if (enemigoArreglo[i]->ObtenerPasoActual() == 2)
+			if (!EsLimitePantalla(enemigoArreglo[i], BORDE_IZQUIERDO))
+				enemigoArreglo[i]->MoverX(-2);//IZQUIERDA
+			else
+			{
+				enemigoArreglo[i]->IncrementarPasoActual();
+				enemigoArreglo[i]->IncrementarPasoActual();
+			}
+		if (enemigoArreglo[i]->ObtenerPasoActual() == 3)
+			if (!EsLimitePantalla(enemigoArreglo[i], BORDE_INFERIOR))
+				enemigoArreglo[i]->MoverX(2);//ABAJO
+	}
+
+}
+
+bool Nave::EstaColisionando(Nave * b)
+{
+	return false;
+}

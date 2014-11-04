@@ -1,5 +1,5 @@
 #include "Nave.h"
-#include "configuracion.h"
+#include "Configuracion.h"
 
 Nave::Nave(SDL_Surface * screen, char * rutaImagen, int x, int y)
 {
@@ -10,31 +10,33 @@ Nave::Nave(SDL_Surface * screen, char * rutaImagen, int x, int y)
 	this->x = x;
 	this->y = y;
 	autoMovimiento = false;
-	pasoActual= 0;
-	pasoLimite= -1;
+	pasoActual = 0;
+	pasoLimite = -1;
+}
 
-}
-void Nave:: Pintar(){
-	sprite->PintarModulo(0,x,y);
-}
 void Nave::SetAutoMovimiento(bool autoMovimiento)
 {
 	this->autoMovimiento = autoMovimiento;
-
 }
-void Nave::Actualizar(){
 
-	if (autoMovimiento){
-
+void Nave::Actualizar()
+{
+	if (autoMovimiento)
+	{
 		MoverX(1);
 	}
 	if (pasoLimite > 0)
 	{
 		//pasoActual++;
-		if (pasoActual>=pasoLimite)
-			pasoActual=0;
+		if (pasoActual >= pasoLimite)
+			pasoActual = 0;
 	}
 
+}
+
+void Nave::Pintar()
+{
+	sprite->PintarModulo(0, x, y);
 }
 
 void Nave::MoverX(int posicion)
@@ -42,22 +44,31 @@ void Nave::MoverX(int posicion)
 	x += posicion;
 }
 
-int Nave::ObtenerX(){
+void Nave::MoverY(int posicion)
+{
+	y += posicion;
+}
+
+int Nave::ObtenerX()
+{
 	return x;
 }
 
-int Nave::ObtenerY(){
+int Nave::ObtenerY()
+{
 	return y;
 }
 
-int Nave::ObtenerW(){
+int Nave::ObtenerW()
+{
 	return w;
 }
 
-int Nave::ObtenerH(
-){
+int Nave::ObtenerH()
+{
 	return h;
 }
+
 void Nave::SetPasoLimite(int pasos)
 {
 	this->pasoLimite = pasos;
@@ -67,6 +78,8 @@ int Nave::ObtenerPasoActual()
 {
 	return pasoActual;
 }
-void Nave::IncrementarPasoActual(){
+
+void Nave::IncrementarPasoActual()
+{
 	pasoActual++;
 }
