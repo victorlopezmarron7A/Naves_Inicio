@@ -7,6 +7,7 @@
 
 CGame::CGame()
 {
+	tiempoFrame = 0;
 	estado = ESTADO_INICIANDO;
 	atexit(SDL_Quit);
 }
@@ -56,7 +57,7 @@ void CGame::Iniciando()
 		enemigoArreglo[i]->SetPasoLimite(4);
 	}
 
-	
+	tick = 0;
 	
 
 	//delete nave;
@@ -159,8 +160,14 @@ bool CGame::Start()
 			if (event.type == SDL_QUIT) { salirJuego = true; }     //Si se detecta una salida de SDL o...
 			if (event.type == SDL_KEYDOWN) {} //... una dirección (abajo) del teclado.
 		}
-
+		// ESTE CODIGO ESTARA PROVICIONALMENTE AQUI.
 		SDL_Flip(screen);
+		//CALCULANDO FPS
+		int tiempoFrameFinal= SDL_GetTicks();
+		printf("%d %d %f %d\n", tick, SDL_GetTicks(), (float)SDL_GetTicks()/ (float)tick, tiempoFrameFinal - tiempoFrame);
+		tiempoFrame = tiempoFrameFinal;// Marcamos el inicio nuevamente
+		tick++;
+
 	}
 	return true;
 }

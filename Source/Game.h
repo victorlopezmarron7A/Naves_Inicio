@@ -25,8 +25,11 @@ private:
 	SDL_Event event; // La variable event de tipo evento de SDL servirá para monitorizar el teclado
 
 	SDL_Surface * screen;
+
 	Nave * nave;
-	
 	Nave *enemigoArreglo[10];
+	int tick;
+	int tiempoFrame;
 	Estado estado;
+	
 };
