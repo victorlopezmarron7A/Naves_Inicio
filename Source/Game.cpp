@@ -7,7 +7,7 @@
 
 CGame::CGame()
 {
-	tiempoFrame = 0;
+	tiempoFrameInicial = 0;
 	estado = ESTADO_INICIANDO;
 	atexit(SDL_Quit);
 }
@@ -163,9 +163,14 @@ bool CGame::Start()
 		// ESTE CODIGO ESTARA PROVICIONALMENTE AQUI.
 		SDL_Flip(screen);
 		//CALCULANDO FPS
-		int tiempoFrameFinal= SDL_GetTicks();
-		printf("%d %d %f %d\n", tick, SDL_GetTicks(), (float)SDL_GetTicks()/ (float)tick, tiempoFrameFinal - tiempoFrame);
-		tiempoFrame = tiempoFrameFinal;// Marcamos el inicio nuevamente
+	    tiempoFrameFinal= SDL_GetTicks();
+		while (tiempoFrameFinal < (tiempoFrameInicial + FPS_DELAY)){
+			tiempoFrameFinal = SDL_GetTicks();
+			SDL_Delay(1);
+
+		}
+		printf("Frame:%d Tiempo:%d Tiempo: %f Tiempo por Frame %d FPS:%f\n", tick, SDL_GetTicks(), (float)SDL_GetTicks()/ (float)tick, tiempoFrameFinal - tiempoFrameInicial,1000.0f /(float)(tiempoFrameFinal-tiempoFrameFinal));
+		tiempoFrameInicial = tiempoFrameFinal;// Marcamos el inicio nuevamente
 		tick++;
 
 	}
@@ -196,7 +201,7 @@ void CGame::MoverEnemigo()
 			       //////////////PASO 0//////////////////
 		if (enemigoArreglo[i]->ObtenerPasoActual() == 0)
 			if (!EsLimitePantalla(enemigoArreglo[i], BORDE_DERECHO))
-				enemigoArreglo[i]->MoverX(2);
+				enemigoArreglo[i]->MoverX(10);
 			else
 			{
 				enemigoArreglo[i]->IncrementarPasoActual();
