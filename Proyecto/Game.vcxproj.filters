@@ -44,6 +44,9 @@
     <ClInclude Include="..\Source\Nave.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Ejecutable\Readme.txt">
