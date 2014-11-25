@@ -12,8 +12,15 @@ Sprite::~Sprite()
 	SDL_FreeSurface(image);
 }
 void Sprite::CargarImagen(char * nombre)
-{
+{    
 	image = SDL_LoadBMP(nombre);
+	SDL_SetColorKey(image, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(image->format, 255, 0, 255));
+	if (image == NULL)
+	{
+		printf("No se ha podido cargar la imagen");
+		exit(1);
+	}
+	
 }/*
 
 void Sprite::PintarModulo(int nombre,int x, int y, int w, int h){

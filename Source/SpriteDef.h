@@ -15,8 +15,8 @@ public:
 	
 	};
 public:
-	 Modulos modulos[1];
-     SpriteDef();
+	 Modulos modulos[9];
+     SpriteDef();// Numero de modulos
 };
 
 #endif

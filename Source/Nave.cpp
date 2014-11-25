@@ -1,118 +1,27 @@
 #include "Nave.h"
-#include "Configuracion.h"
+#include "SDL.h"
+#include "Objeto.h"
 
-Nave::Nave(SDL_Surface * screen, char * rutaImagen, int x, int y)
-{
-	sprite = new Sprite(screen);
-	sprite->CargarImagen(rutaImagen);
-<<<<<<< HEAD
-	this->x = x;
-	this->y = y;
-	autoMovimiento = false;
-=======
-	w = sprite->WidthModule(0);
-	h = sprite->HeightModule(0);
-	this->x = x;
-	this->y = y;
-	autoMovimiento = false;
-	pasoActual = 0;
-	pasoLimite = -1;
-}
-
-void Nave::SetAutoMovimiento(bool autoMovimiento)
-{
-	this->autoMovimiento = autoMovimiento;
-}
-
-void Nave::Actualizar()
-{
-	if (autoMovimiento)
-	{
-		MoverX(1);
-	}
-	if (pasoLimite > 0)
-	{
-		//pasoActual++;
-		if (pasoActual >= pasoLimite)
-			pasoActual = 0;
-	}
+Nave::Nave(SDL_Surface*screen, char*rutaImagen, int x, int y, int module){
+	nave = new Objeto(screen, rutaImagen, x, y, module);
 
 }
-
-void Nave::Pintar()
-{
-	sprite->PintarModulo(0, x, y);
+void Nave::Pintar(){
+	nave->Pintar();
 }
 
-void Nave::MoverX(int posicion)
-{
-	x += posicion;
+void Nave::MoverAbajo(){
+	nave->MoverY(15);
 }
->>>>>>> 0ad159d502fc479c34d96d8966b4854fdfc603fd
-
-void Nave::MoverY(int posicion)
-{
-	y += posicion;
+void Nave::MoverArriba(){
+	nave->MoverY(-15);
 }
-
-int Nave::ObtenerX()
-{
-	return x;
+void Nave::MoverDerecha(){
+	nave->MoverX(15);
 }
-
-int Nave::ObtenerY()
-{
-	return y;
+void Nave::MoverIzquierda(){
+	nave->MoverX(-15);
 }
-
-int Nave::ObtenerW()
-{
-	return w;
+Objeto* Nave::GetNaveObjeto(){
+	return nave;
 }
-<<<<<<< HEAD
-void Nave::SetAutoMovimiento(bool autoMovimiento)
-{
-	this->autoMovimiento = autoMovimiento;
-=======
->>>>>>> 0ad159d502fc479c34d96d8966b4854fdfc603fd
-
-int Nave::ObtenerH()
-{
-	return h;
-}
-<<<<<<< HEAD
-void Nave::Actualizar()
-{
-	if (autoMovimiento)
-	{
-		MoverX(1);
-	}
-}
-
-void Nave::Pintar()
-{
-	sprite->PintarModulo(0, x, y);
-}
-
-void Nave::MoverX(int posicion)
-{
-	x += posicion;
-}
-
-=======
-
-void Nave::SetPasoLimite(int pasos)
-{
-	this->pasoLimite = pasos;
-}
-
-int Nave::ObtenerPasoActual()
-{
-	return pasoActual;
-}
-
-void Nave::IncrementarPasoActual()
-{
-	pasoActual++;
-}
->>>>>>> 0ad159d502fc479c34d96d8966b4854fdfc603fd

@@ -1,4 +1,6 @@
-#include <SDL.h>;
+#pragma once
+#include <SDL.h>
+#include "Objeto.h"
 #include "Nave.h"
 class CGame
 {
@@ -17,31 +19,28 @@ public:
 	void Finalize();
 
 private:
-<<<<<<< HEAD
-	void Iniciando();   
-
-	Uint8 *keys;// Uint8 es un signo entero de 8 bits, Esta variable nos servira para ver si determinadas teclas estan o no pulsadas 
-	SDL_Event event;// La variable event de tipo Evento en SDL nos servira para monitorizar el teclado
-	
-	SDL_Surface *screen;
-	Nave * nave;
-	Nave * enemigo;
-=======
 	void Iniciando();
+	void Menu();
 	void MoverEnemigo();
-	bool EsLimitePantalla(Nave * objeto, int bandera);
+	bool EsLimitePantalla(Objeto * objeto, int bandera);
 
+	int opcionSeleccionada;
 	Uint8 *keys; //Esta variable servirá para ver si determinadas teclas están o no pulsadas
 	SDL_Event event; // La variable event de tipo evento de SDL servirá para monitorizar el teclado
 
 	SDL_Surface * screen;
+    Nave * nave;
+	Objeto *enemigoArreglo[10];
 
-	Nave * nave;
-	Nave *enemigoArreglo[10];
+	Objeto *menu; //Fondo del Menu
+	Objeto *textos; //Textos del juego
+	Objeto *fondo;//Fondo del juego
+
+
+
 	int tick;
 	int tiempoFrameInicial;
 	int tiempoFrameFinal;
->>>>>>> 0ad159d502fc479c34d96d8966b4854fdfc603fd
+
 	Estado estado;
-	
 };

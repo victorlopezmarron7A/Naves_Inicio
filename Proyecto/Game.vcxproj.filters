@@ -27,6 +27,12 @@
     <ClCompile Include="..\Source\SpriteDef.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Objeto.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Stage.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
     <ClCompile Include="..\Source\Nave.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -41,14 +47,16 @@
     <ClInclude Include="..\Source\sprite.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\configuracion.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Objeto.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
     <ClInclude Include="..\Source\Nave.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="config.h">
-=======
-    <ClInclude Include="..\Source\configuracion.h">
->>>>>>> 0ad159d502fc479c34d96d8966b4854fdfc603fd
+    <ClInclude Include="..\Source\Stage.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
